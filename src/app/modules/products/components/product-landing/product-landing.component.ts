@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'turtle-product-landing',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-landing.component.scss']
 })
 export class ProductLandingComponent implements OnInit {
+
+  checked = false;
 
   products = [
     {
@@ -34,9 +37,25 @@ export class ProductLandingComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(private store: Store<any>) { }
 
   ngOnInit(): void {
+
+    this.store.select('products').subscribe(
+      products => {
+        if (products) {
+          this.checked = products.showDoggos;
+        }
+        console.log(products);
+      }
+    );
+  }
+
+  onChange(state: boolean): void {
+    this.store.dispatch({
+      type: '[Products] Toggle doggos view'
+    });
+    this.checked = state;
   }
 
 }

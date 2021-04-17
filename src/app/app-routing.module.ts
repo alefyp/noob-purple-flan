@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -12,12 +13,18 @@ const routes: Routes = [
     redirectTo: '',
     pathMatch: 'full'
   },
-  { path: '**', component: PageNotFoundComponent },
+  {
+    path: '**',
+    component: PageNotFoundComponent
+  },
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    preloadingStrategy: PreloadAllModules
+  }
+  )],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

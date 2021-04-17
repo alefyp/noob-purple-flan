@@ -1,6 +1,8 @@
-<mat-slide-toggle>Quiero ver doggos?</mat-slide-toggle>
+<mat-slide-toggle (change)="onChange($event.checked)" [checked]="checked"
+  >Quiero ver doggos? {{ checked }}</mat-slide-toggle
+>
 
-<mat-grid-list cols="4" rowHeight="1:2">
+<mat-grid-list *ngIf="checked" cols="4" rowHeight="1:2">
   <mat-grid-tile *ngFor="let product of products" class="example-card">
     <mat-card>
       <mat-card-header>
